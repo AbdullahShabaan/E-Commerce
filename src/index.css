@@ -1,0 +1,66 @@
+.defaultBtn {
+  background-color: #db4444;
+  color: white;
+  padding: 8px 30px;
+  border: none;
+}
+.notFound {
+  padding-top: 10%;
+  text-align: center;
+}
+.notFound h1 {
+  font-size: 130px;
+}
+.notFound p {
+  font-size: 50px;
+}
+.navbar-nav .nav-link.active {
+  text-decoration: underline;
+}
+.btnDelete:hover span {
+  color: #db4444 !important;
+}
+
+/* Home */
+@media (max-width: 768px) {
+  .catLinks {
+    border: none !important;
+  }
+}
+
+.categories-list li {
+  font-size: 18px;
+  font-family: "stroke";
+  margin: 5px 0;
+}
+
+/* Home */
+
+/* Cart Item */
+@media (min-width: 1025px) {
+  .h-custom {
+    height: 100vh !important;
+  }
+}
+
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+  font-size: 1rem;
+  line-height: 2.15;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+}
+
+.card-registration .select-arrow {
+  top: 13px;
+}
+/* Cart Item */
+
+/* Products Slider  */
+.slick-prev,
+.slick-next {
+  display: none !important;
+}
+.slick-dots {
+  bottom: -60px !important;
+}
+/* Products Slider  */

@@ -1,0 +1,17 @@
+@media (max-width: 772px) {
+  .mainNav {
+    flex-direction: column !important;
+  }
+  .toggelerNavBar {
+    order: 4 !important;
+    width: 100%;
+  }
+}
+.navbarHeader h2 {
+  font-size: 25px;
+  font-weight: bold;
+}
+.headerLink {
+  font-weight: 500 !important;
+  font-size: 15px;
+}

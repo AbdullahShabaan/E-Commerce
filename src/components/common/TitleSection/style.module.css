@@ -1,0 +1,11 @@
+.titleSection {
+  color: #db4444;
+  font-weight: 500;
+  font-size: 16px;
+}
+.titleIcon {
+  width: 20px;
+  height: 40px;
+  background-color: #db4444;
+  border-radius: 6px;
+}

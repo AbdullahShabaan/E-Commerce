@@ -1,0 +1,43 @@
+.basketContainer {
+  position: relative;
+  cursor: pointer;
+  align-self: flex-end;
+}
+.basketName {
+  margin-right: 5px !important;
+}
+
+.basketQuantity {
+  background-color: #db4444;
+  color: white;
+  height: 22px;
+  width: 20px;
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid;
+  position: absolute;
+  top: -16px;
+  right: -5px;
+  font-size: 12px;
+}
+.pumpWishlistQuantity {
+  animation: pumping 300ms ease-out;
+}
+
+@keyframes pumping {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(0.8);
+  }
+  30% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

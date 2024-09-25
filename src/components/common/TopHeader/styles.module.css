@@ -1,0 +1,33 @@
+.headerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+}
+.headerContainer p {
+  margin: 0;
+  font-size: 14px;
+  padding: 10px 0;
+  font-weight: 200;
+}
+.headerContainer span {
+  font-family: "poppins";
+  margin-left: 5px;
+  font-size: 15px;
+  display: inline-block;
+}
+
+@media (max-width: 500px) {
+  .headerContainer {
+    flex-direction: column;
+  }
+  .headerContainer p {
+    font-size: 10px;
+    text-align: center;
+    padding-bottom: 0;
+  }
+  .headerContainer span {
+    margin-bottom: 2px;
+  }
+}
