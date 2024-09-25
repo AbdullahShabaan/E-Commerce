@@ -1,27 +1,11 @@
-import { useEffect } from "react";
 import Category from "@components/ecommerce/Category/Category";
 import Loading from "@components/feedback/Loading/Loading";
 import { GridList, Heading } from "@components/common";
-import {
-  cleanUpCategories,
-  getCategories,
-} from "@store/Categories/categoriesSlice";
-import { AppDispatch, RootState } from "@store/store";
 import { Container } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useCategories } from "@hooks/useCategories";
 
 const Categories = () => {
-  const { data, loading, error } = useSelector(
-    (state: RootState) => state.categoriesSlice
-  );
-  const dispatch = useDispatch<AppDispatch>();
-  useEffect(() => {
-    dispatch(getCategories());
-
-    return () => {
-      dispatch(cleanUpCategories());
-    };
-  }, [dispatch]);
+  const { data, loading, error } = useCategories();
 
   return (
     <div>

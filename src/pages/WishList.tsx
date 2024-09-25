@@ -1,33 +1,11 @@
 import { GridList, Heading } from "@components/common";
 import Product from "@components/ecommerce/Product/Product";
 import Loading from "@components/feedback/Loading/Loading";
-import { AppDispatch, RootState } from "@store/store";
-import getWishList from "@store/Wishlist/act/actGetWishList";
-import { cleanUpWishlistProducts } from "@store/Wishlist/WishListSlice";
-import { useEffect } from "react";
+import { useWishlist } from "@hooks/useWishlist";
 import { Container } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
 
 const WishList = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const { productsFullInfo, error, loading } = useSelector(
-    (state: RootState) => state.WishListSlice
-  );
-  const selector = useSelector((state: RootState) => state.CartSlice.items);
-  useEffect(() => {
-    dispatch(getWishList());
-
-    return () => {
-      dispatch(cleanUpWishlistProducts());
-    };
-  }, [dispatch]);
-
-  const fullDataInfo = productsFullInfo.map((d) => ({
-    ...d,
-    quantity: selector[d.id] ?? 0,
-    isLiked: true,
-  }));
-
+  const { fullDataInfo, loading, error } = useWishlist();
   return (
     <>
       <Heading title="Your WishList" />

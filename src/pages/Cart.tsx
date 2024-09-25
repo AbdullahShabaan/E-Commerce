@@ -1,27 +1,11 @@
 import { Heading } from "@components/common";
 import CartItemsList from "@components/ecommerce/CartItemsList/CartItemsList";
 import TotalPrice from "@components/ecommerce/TotalPrice/TotalPrice";
-import getProductsByItems from "@store/Cart/act/getProductsByItems";
-import { cleanUpCartProducts } from "@store/Cart/CartSlice";
-import { AppDispatch, RootState } from "@store/store";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useCart } from "@hooks/useCart";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const { items } = useSelector((state: RootState) => state.CartSlice);
-  const itemsLength =
-    Object.values(items).length > 0
-      ? Object.values(items).reduce((prev, curr) => prev + curr)
-      : 0;
-  const dispatch = useDispatch<AppDispatch>();
-  useEffect(() => {
-    dispatch(getProductsByItems());
-
-    return () => {
-      dispatch(cleanUpCartProducts());
-    };
-  }, [dispatch]);
+  const { itemsLength } = useCart();
   return (
     <>
       <Heading title="Your Cart Items" />
@@ -48,7 +32,6 @@ const Cart = () => {
                         ) : (
                           <p>Your cart is empty. Try adding items!</p>
                         )}
-
                         <div className="pt-5">
                           <h6 className="mb-0">
                             <Link to="/" className="text-body">
