@@ -6,6 +6,7 @@ import WishListHeader from "@components/ecommerce/WishListHeader/WishListHeader"
 import logo from "@assets/logo3.png";
 const Header = () => {
   const { navbarHeader, headerLink, mainNav, toggelerNavBar } = styles;
+
   return (
     <header>
       <div>

@@ -24,7 +24,7 @@ const Cart = () => {
   }, [dispatch]);
   return (
     <>
-      <Heading>Your Cart Items</Heading>
+      <Heading title="Your Cart Items" />
       <section>
         <div className="pt-2 pb-5">
           <div className="row d-flex justify-content-center align-items-center">

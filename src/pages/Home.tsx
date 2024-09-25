@@ -13,7 +13,7 @@ const Home = () => {
   const { data } = useSelector((state: RootState) => state.productsSlice);
   const selector = useSelector((state: RootState) => state.CartSlice.items);
   const wishlistItems = useSelector(
-    (state: RootState) => state.WishListSlice.itemsId || []
+    (state: RootState) => state.WishListSlice?.itemsId || []
   );
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
@@ -45,7 +45,7 @@ const Home = () => {
           <img className="w-100" src={photo} alt="" />
         </div>
       </div>
-      <TitleSection title="Recent Products">Today's</TitleSection>{" "}
+      <TitleSection title="Recent Products">Today's</TitleSection>
       <div className="py-5">
         <SliderProducts fullDataInfo={fullDataInfo} />
         <Link

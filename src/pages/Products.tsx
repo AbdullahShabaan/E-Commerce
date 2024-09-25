@@ -34,11 +34,12 @@ const Products = () => {
     };
   }, [dispatch, prefix]);
 
+  const catTitle = prefix
+    ? prefix[0].toLocaleUpperCase() + prefix.slice(1)
+    : "";
   return (
     <div>
-      <Heading>
-        <span className="text-capitalize">{prefix} Products</span>
-      </Heading>
+      <Heading title={`${catTitle} Products`} />
       <Container>
         <Loading loading={loading} error={error}>
           <GridList
