@@ -2,9 +2,10 @@
   position: relative;
   cursor: pointer;
   align-self: flex-end;
-  padding-left: 10px;
-  margin-left: 5px;
-  border-left: 1px solid black;
+}
+
+.basketName {
+  margin-right: 5px !important;
 }
 
 .basketQuantity {
@@ -20,7 +21,7 @@
   right: -5px;
   font-size: 12px;
 }
-.pumpCartQuantity {
+.pumpQuantity {
   animation: pumping 300ms ease-out;
 }
 

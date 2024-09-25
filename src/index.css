@@ -20,7 +20,13 @@
 .btnDelete:hover span {
   color: #db4444 !important;
 }
-
+/* Header Counter */
+.basketContainer + div {
+  padding-left: 10px;
+  margin-left: 5px;
+  border-left: 1px solid black;
+}
+/* Header Counter */
 /* Home */
 @media (max-width: 768px) {
   .catLinks {
