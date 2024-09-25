@@ -1,23 +1,27 @@
-import { MainLayout } from "@layouts/index";
+import { lazy, Suspense } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-//pages
-import {
-  Categories,
-  Products,
-  AboutsUs,
-  Home,
-  Login,
-  Register,
-  Cart,
-} from "@pages/index";
 import ErrorPage from "@pages/ErrorPage";
-import WishList from "@pages/WishList";
+
+// Pages
+const MainLayout = lazy(() => import("@layouts/MainLayout/MainLayout"));
+const Categories = lazy(() => import("@pages/Categories"));
+const Products = lazy(() => import("@pages/Products"));
+const AboutsUs = lazy(() => import("@pages/AboutsUs"));
+const Home = lazy(() => import("@pages/Home"));
+const Login = lazy(() => import("@pages/Login"));
+const Register = lazy(() => import("@pages/Register"));
+const Cart = lazy(() => import("@pages/Cart"));
+const WishList = lazy(() => import("@pages/WishList"));
 
 const AppRouter = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <MainLayout />,
+      element: (
+        <Suspense fallback="Loading....">
+          <MainLayout />
+        </Suspense>
+      ),
       errorElement: <ErrorPage />,
       children: [
         { path: "/", element: <Home /> },
@@ -43,27 +47,51 @@ const AppRouter = () => {
         },
         {
           path: "aboutsUs",
-          element: <AboutsUs />,
+          element: (
+            <Suspense fallback="Loading......">
+              <AboutsUs />
+            </Suspense>
+          ),
         },
         {
           path: "cart",
-          element: <Cart />,
+          element: (
+            <Suspense fallback="Loading......">
+              <Cart />
+            </Suspense>
+          ),
         },
         {
           path: "wishlist",
-          element: <WishList />,
+          element: (
+            <Suspense fallback="Loading......">
+              <WishList />
+            </Suspense>
+          ),
         },
         {
           path: "home",
-          element: <Home />,
+          element: (
+            <Suspense fallback="Loading......">
+              <Home />
+            </Suspense>
+          ),
         },
         {
           path: "login",
-          element: <Login />,
+          element: (
+            <Suspense fallback="Loading......">
+              <Login />
+            </Suspense>
+          ),
         },
         {
           path: "register",
-          element: <Register />,
+          element: (
+            <Suspense fallback="Loading......">
+              <Register />
+            </Suspense>
+          ),
         },
       ],
     },
