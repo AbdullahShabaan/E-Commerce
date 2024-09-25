@@ -2,6 +2,7 @@ import { Heading } from "@components/common";
 import CartItemsList from "@components/ecommerce/CartItemsList/CartItemsList";
 import TotalPrice from "@components/ecommerce/TotalPrice/TotalPrice";
 import getProductsByItems from "@store/Cart/act/getProductsByItems";
+import { cleanUpCartProducts } from "@store/Cart/CartSlice";
 import { AppDispatch, RootState } from "@store/store";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +17,10 @@ const Cart = () => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(getProductsByItems());
+
+    return () => {
+      dispatch(cleanUpCartProducts());
+    };
   }, [dispatch]);
   return (
     <>

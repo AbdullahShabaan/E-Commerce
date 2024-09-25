@@ -2,7 +2,10 @@ import { useEffect } from "react";
 import Category from "@components/ecommerce/Category/Category";
 import Loading from "@components/feedback/Loading/Loading";
 import { GridList, Heading } from "@components/common";
-import { getCategories } from "@store/Categories/categoriesSlice";
+import {
+  cleanUpCategories,
+  getCategories,
+} from "@store/Categories/categoriesSlice";
 import { AppDispatch, RootState } from "@store/store";
 import { Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,10 +16,12 @@ const Categories = () => {
   );
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    if (!data.length) {
-      dispatch(getCategories());
-    }
-  }, [dispatch, data]);
+    dispatch(getCategories());
+
+    return () => {
+      dispatch(cleanUpCategories());
+    };
+  }, [dispatch]);
 
   return (
     <div>

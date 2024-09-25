@@ -40,6 +40,9 @@ const cartSlice = createSlice({
         );
       }
     },
+    cleanUpCartProducts: (state) => {
+      state.productFullInfo = [];
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getProductsByItems.pending, (state) => {
@@ -60,5 +63,9 @@ const cartSlice = createSlice({
 
 export { getTotalQuanityInCart };
 export default cartSlice.reducer;
-export const { addToCart, removeFromCart, removeProductFromCart } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  removeProductFromCart,
+  cleanUpCartProducts,
+} = cartSlice.actions;

@@ -38,13 +38,12 @@ function SliderProducts(data: { fullDataInfo: TProducts[] }) {
       },
     ],
   };
-  console.log(data.fullDataInfo);
 
   return (
     <div className="slider-container">
       <Slider {...settings}>
-        {data.fullDataInfo.map((data) => (
-          <div>
+        {data.fullDataInfo.map((data, index) => (
+          <div key={index}>
             <Product {...data} />
           </div>
         ))}

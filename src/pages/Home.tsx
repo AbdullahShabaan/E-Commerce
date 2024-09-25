@@ -2,6 +2,7 @@ import photo from "@assets/Frame 560.png";
 import SliderProducts from "@components/common/SliderComponent/SliderComponent";
 import TitleSection from "@components/common/TitleSection/TitleSection";
 import getAllProducts from "@store/Products/act/actGetAllProducts";
+import { productsCleanUp } from "@store/Products/productsSlice";
 import { AppDispatch, RootState } from "@store/store";
 import { useEffect } from "react";
 import { Container } from "react-bootstrap";
@@ -17,6 +18,10 @@ const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(getAllProducts());
+
+    return () => {
+      dispatch(productsCleanUp());
+    };
   }, [dispatch]);
 
   const fullDataInfo = data.map((d) => ({
@@ -24,8 +29,6 @@ const Home = () => {
     quantity: selector[d.id] ?? 0,
     isLiked: wishlistItems.includes(d.id),
   }));
-
-  console.log(fullDataInfo);
 
   return (
     <Container>
