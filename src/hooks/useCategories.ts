@@ -12,10 +12,11 @@ export const useCategories = () => {
   );
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    dispatch(getCategories());
+    const promise = dispatch(getCategories());
 
     return () => {
       dispatch(cleanUpCategories());
+      promise.abort();
     };
   }, [dispatch]);
   return { data, loading, error };

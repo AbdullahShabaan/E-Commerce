@@ -22,10 +22,11 @@ export const useProducts = () => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     const cat = prefix as string;
-    dispatch(getProductsByCatPrefix(cat));
+    const promise = dispatch(getProductsByCatPrefix(cat));
 
     return () => {
       dispatch(productsCleanUp());
+      promise.abort();
     };
   }, [dispatch, prefix]);
 

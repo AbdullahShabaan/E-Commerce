@@ -11,10 +11,11 @@ export const useCart = () => {
       : 0;
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    dispatch(getProductsByItems());
+    const promise = dispatch(getProductsByItems());
 
     return () => {
       dispatch(cleanUpCartProducts());
+      promise.abort();
     };
   }, [dispatch]);
   return { itemsLength };

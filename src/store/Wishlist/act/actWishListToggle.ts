@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { axiosErrorHandler } from "@utils/axiosErrorHandler";
 import axios from "axios";
 
 interface IWishlistRequest {
@@ -25,11 +26,9 @@ const wishListToggle = createAsyncThunk(
         return { type: "add", productId };
       }
     } catch (e) {
-      if (axios.isAxiosError(e)) {
-        return rejectWithValue(e.message);
-      } else {
-        return rejectWithValue("An error occurred while toggling wishlist");
-      }
+      return rejectWithValue(
+        axiosErrorHandler(e, "An error occurred while toggling wishlist")
+      );
     }
   }
 );

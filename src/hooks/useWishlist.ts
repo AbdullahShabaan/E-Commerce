@@ -11,10 +11,11 @@ export const useWishlist = () => {
   );
   const selector = useSelector((state: RootState) => state.CartSlice.items);
   useEffect(() => {
-    dispatch(getWishList());
+    const promise = dispatch(getWishList());
 
     return () => {
       dispatch(cleanUpWishlistProducts());
+      promise.abort();
     };
   }, [dispatch]);
 
