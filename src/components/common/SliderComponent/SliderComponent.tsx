@@ -1,4 +1,5 @@
 import Product from "@components/ecommerce/Product/Product";
+import ProductSliderSkeleton from "@components/feedback/skeletons/ProductSliderSkeleton/ProductSliderSkeleton";
 import Slider from "react-slick";
 import { TProducts } from "src/types/TProducts";
 
@@ -42,6 +43,10 @@ function SliderProducts(data: { fullDataInfo: TProducts[] }) {
   return (
     <div className="slider-container">
       <Slider {...settings}>
+        {data.fullDataInfo.length == 0 &&
+          [0, 0, 0, 0, 0].map((_, index) => (
+            <ProductSliderSkeleton key={index} />
+          ))}
         {data.fullDataInfo.map((data, index) => (
           <div key={index}>
             <Product {...data} />

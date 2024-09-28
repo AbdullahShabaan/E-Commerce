@@ -10,7 +10,7 @@ const Products = () => {
     <div>
       <Heading title={`${catTitle} Products`} />
       <Container>
-        <Loading loading={loading} error={error}>
+        <Loading loading={loading} error={error} type="product">
           <GridList
             message="there is no products available!"
             data={fullDataInfo}

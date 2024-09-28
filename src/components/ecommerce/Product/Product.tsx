@@ -46,7 +46,7 @@ const Product = memo(
     };
 
     return (
-      <div className={product}>
+      <div className={`${product} mt-4`}>
         <div className={productImg}>
           <div
             className={`position-absolute ${like}`}

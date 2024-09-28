@@ -3,6 +3,7 @@ import wishListToggle from "./act/actWishListToggle";
 import { TProducts } from "src/types/TProducts";
 import { TLoading } from "src/types/TLoading";
 import getWishList from "./act/actGetWishList";
+import isString from "src/types/isString";
 
 interface IWishListState {
   itemsId: number[];
@@ -55,7 +56,9 @@ const wishListSlice = createSlice({
       state.productsFullInfo = action.payload;
     });
     builder.addCase(getWishList.rejected, (state, action) => {
-      state.error = action.payload as string;
+      if (isString(action.payload)) {
+        state.error = action.payload;
+      }
       state.loading = "failed";
     });
   },

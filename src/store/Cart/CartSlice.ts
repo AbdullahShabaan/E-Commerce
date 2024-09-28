@@ -3,6 +3,7 @@ import { getTotalQuanityInCart } from "@store/selectors";
 import { TLoading } from "src/types/TLoading";
 import { TProducts } from "src/types/TProducts";
 import getProductsByItems from "./act/getProductsByItems";
+import isString from "src/types/isString";
 
 interface ICartState {
   items: { [key: string]: number };
@@ -56,7 +57,9 @@ const cartSlice = createSlice({
     });
     builder.addCase(getProductsByItems.rejected, (state, action) => {
       state.loading = "failed";
-      state.error = action.payload as string;
+      if (isString(action.payload)) {
+        state.error = action.payload;
+      }
     });
   },
 });

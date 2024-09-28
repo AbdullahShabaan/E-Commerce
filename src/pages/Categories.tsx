@@ -11,7 +11,7 @@ const Categories = () => {
     <div>
       <Heading title="Categories" />
       <Container>
-        <Loading loading={loading} error={error}>
+        <Loading loading={loading} error={error} type="category">
           <GridList
             message="there is no categories available!"
             data={data}

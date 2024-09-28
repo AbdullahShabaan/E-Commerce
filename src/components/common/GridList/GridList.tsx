@@ -20,7 +20,7 @@ const GridList = <T extends THasId>({
         ))
       : `${message}`;
 
-  return <div className="row gy-4">{categoriesList}</div>;
+  return <div className="row gy-4 mt-4 ">{categoriesList}</div>;
 };
 
 export default GridList;

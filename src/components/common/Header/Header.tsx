@@ -4,6 +4,8 @@ import { NavLink as navLinkRouter } from "react-router-dom";
 import styles from "./styles.module.css";
 import WishListHeader from "@components/ecommerce/WishListHeader/WishListHeader";
 import logo from "@assets/logo3.png";
+import loaderAnimation from "../../../assets/loader.json";
+import Lottie from "lottie-react";
 const Header = () => {
   const { navbarHeader, headerLink, mainNav, toggelerNavBar } = styles;
 
@@ -22,11 +24,16 @@ const Header = () => {
               className="border-0 outline-none shadow-none order-4"
               aria-controls="basic-navbar-nav"
             />
+            <Lottie
+              style={{ width: "100px" }}
+              animationData={loaderAnimation}
+              loop={false}
+            />
             <Navbar.Collapse
               className={`${toggelerNavBar}`}
               id="basic-navbar-nav"
             >
-              <Nav className="m-auto d-flex">
+              <Nav className="ms-3 d-flex">
                 <NavLink className={headerLink} as={navLinkRouter} to="./home">
                   Home
                 </NavLink>
@@ -52,6 +59,7 @@ const Header = () => {
                 </NavLink>
               </Nav>
             </Navbar.Collapse>
+
             <div className="d-flex align-items-center py-3">
               <WishListHeader />
               <HeaderBasket />

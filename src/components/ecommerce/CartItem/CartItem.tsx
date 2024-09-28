@@ -50,8 +50,8 @@ const CartItem = memo(({ products }: { products: TProducts }) => {
   }, [counter, max]);
 
   return (
-    <div className="row mb-4 d-flex justify-content-between align-items-center">
-      <div className="col-md-2 col-lg-2 col-xl-2">
+    <div className="row mb-4 d-flex justify-content-between align-items-center mt-5">
+      <div className="col-md-2 col-lg-2 col-xl-2 mt-4">
         <img src={img} className="img-fluid rounded-3" alt={title} />
       </div>
       <div className="col-md-3 col-lg-3 col-xl-3 py-3">

@@ -1,7 +1,8 @@
 import { lazy, Suspense } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "@pages/ErrorPage";
-
+import Lottie from "lottie-react";
+import loadingPages from "../assets/loadingPages.json";
 // Pages
 const MainLayout = lazy(() => import("@layouts/MainLayout/MainLayout"));
 const Categories = lazy(() => import("@pages/Categories"));
@@ -12,13 +13,21 @@ const Login = lazy(() => import("@pages/Login"));
 const Register = lazy(() => import("@pages/Register"));
 const Cart = lazy(() => import("@pages/Cart"));
 const WishList = lazy(() => import("@pages/WishList"));
-
+const Loader = (
+  <div className="d-flex justify-content-center mt-5 pt-5">
+    <Lottie
+      style={{ width: "300px" }}
+      animationData={loadingPages}
+      loop={true}
+    />
+  </div>
+);
 const AppRouter = () => {
   const router = createBrowserRouter([
     {
       path: "/",
       element: (
-        <Suspense fallback="Loading....">
+        <Suspense fallback={Loader}>
           <MainLayout />
         </Suspense>
       ),
@@ -48,7 +57,7 @@ const AppRouter = () => {
         {
           path: "aboutsUs",
           element: (
-            <Suspense fallback="Loading......">
+            <Suspense fallback={Loader}>
               <AboutsUs />
             </Suspense>
           ),
@@ -56,7 +65,7 @@ const AppRouter = () => {
         {
           path: "cart",
           element: (
-            <Suspense fallback="Loading......">
+            <Suspense fallback={Loader}>
               <Cart />
             </Suspense>
           ),
@@ -64,7 +73,7 @@ const AppRouter = () => {
         {
           path: "wishlist",
           element: (
-            <Suspense fallback="Loading......">
+            <Suspense fallback={Loader}>
               <WishList />
             </Suspense>
           ),
@@ -72,7 +81,7 @@ const AppRouter = () => {
         {
           path: "home",
           element: (
-            <Suspense fallback="Loading......">
+            <Suspense fallback={Loader}>
               <Home />
             </Suspense>
           ),
@@ -80,7 +89,7 @@ const AppRouter = () => {
         {
           path: "login",
           element: (
-            <Suspense fallback="Loading......">
+            <Suspense fallback={Loader}>
               <Login />
             </Suspense>
           ),
@@ -88,7 +97,7 @@ const AppRouter = () => {
         {
           path: "register",
           element: (
-            <Suspense fallback="Loading......">
+            <Suspense fallback={Loader}>
               <Register />
             </Suspense>
           ),

@@ -12,7 +12,7 @@ const CartItemsList = () => {
     quantity: items[product.id],
   }));
   return (
-    <Loading loading={loading} error={error}>
+    <Loading loading={loading} error={error} type="cart">
       <div>
         {products.map((el, index) => (
           <div key={index}>

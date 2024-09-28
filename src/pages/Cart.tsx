@@ -3,6 +3,8 @@ import CartItemsList from "@components/ecommerce/CartItemsList/CartItemsList";
 import TotalPrice from "@components/ecommerce/TotalPrice/TotalPrice";
 import { useCart } from "@hooks/useCart";
 import { Link } from "react-router-dom";
+import Lottie from "lottie-react";
+import emptyAnimation from "../assets/empty.json";
 
 const Cart = () => {
   const { itemsLength } = useCart();
@@ -30,7 +32,14 @@ const Cart = () => {
                         {itemsLength > 0 ? (
                           <CartItemsList />
                         ) : (
-                          <p>Your cart is empty. Try adding items!</p>
+                          <div className="d-flex align-items-center">
+                            <p>Your cart is empty. Try adding some items!</p>
+                            <Lottie
+                              style={{ width: "430px" }}
+                              animationData={emptyAnimation}
+                              loop={true}
+                            />
+                          </div>
                         )}
                         <div className="pt-5">
                           <h6 className="mb-0">

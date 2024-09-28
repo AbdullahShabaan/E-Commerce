@@ -3,6 +3,7 @@ import { TLoading } from "src/types/TLoading";
 import { TProducts } from "src/types/TProducts";
 import getProductsByCatPrefix from "./act/actGetProductsByCatPrefix";
 import getAllProducts from "./act/actGetAllProducts";
+import isString from "src/types/isString";
 
 interface IState {
   data: TProducts[];
@@ -46,7 +47,9 @@ const productSlice = createSlice({
     });
     builder.addCase(getAllProducts.rejected, (state, action) => {
       state.loading = "failed";
-      state.error = action.payload as string;
+      if (isString(action.payload)) {
+        state.error = action.payload;
+      }
     });
   },
 });
