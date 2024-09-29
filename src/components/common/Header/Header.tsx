@@ -6,15 +6,35 @@ import WishListHeader from "@components/ecommerce/WishListHeader/WishListHeader"
 import logo from "@assets/logo3.png";
 import loaderAnimation from "../../../assets/loader.json";
 import Lottie from "lottie-react";
+import { useEffect, useState } from "react";
 const Header = () => {
   const { navbarHeader, headerLink, mainNav, toggelerNavBar } = styles;
+  const [isScroll, setIsScroll] = useState(false);
+  const handleScroll = () => {
+    if (window.scrollY > 150) {
+      setIsScroll(true);
+    } else {
+      setIsScroll(false);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
 
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
     <header>
       <div>
         <Navbar
+          style={{ transition: "0.8s top", top: "-50px", position: "static" }}
           expand="lg"
-          className="bg-body-white navbarHeader py-2 border-bottom"
+          className={`bg-body-white navbarHeader py-2 border-bottom  ${
+            isScroll
+              ? "position-fixed start-0 end-0 z-3 bg-white top-0 shadow-sm"
+              : ""
+          }`}
         >
           <Container className={`${navbarHeader}  ${mainNav}`}>
             <div className={`d-flex align-items-center `}>

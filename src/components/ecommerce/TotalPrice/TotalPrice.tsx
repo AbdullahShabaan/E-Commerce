@@ -36,13 +36,14 @@ const TotalPrice = () => {
           <h5>$ {totalPriceComibne.toLocaleString()}</h5>
         </div>
         <button
+          disabled={totalPriceComibne == 0}
           type="button"
           data-mdb-button-init=""
           data-mdb-ripple-init=""
           className="btn btn-dark btn-block btn-lg"
           data-mdb-ripple-color="dark"
         >
-          Register
+          Pay
         </button>
       </div>
     </div>

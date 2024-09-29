@@ -4,7 +4,7 @@ import Loading from "@components/feedback/Loading/Loading";
 import { useWishlist } from "@hooks/useWishlist";
 import { Container } from "react-bootstrap";
 import Lottie from "lottie-react";
-import emptyAnimation from "../assets/empty.json";
+import emptyAnimation from "../assets/empty2.json";
 const WishList = () => {
   const { fullDataInfo, loading, error } = useWishlist();
   return (
@@ -12,11 +12,6 @@ const WishList = () => {
       <Heading title="Your WishList" />
       <Container>
         <Loading loading={loading} error={error} type="product">
-          <GridList
-            message="wishlist is Empty! Try to add some products!"
-            data={fullDataInfo}
-            iteration={(record) => <Product {...record} />}
-          />
           {fullDataInfo.length == 0 && (
             <div className="d-flex justify-content-center">
               <Lottie
@@ -26,6 +21,11 @@ const WishList = () => {
               />
             </div>
           )}
+          <GridList
+            message="wishlist is Empty! Try to add some products!"
+            data={fullDataInfo}
+            iteration={(record) => <Product {...record} />}
+          />
         </Loading>
       </Container>
     </>

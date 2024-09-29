@@ -3,7 +3,7 @@ import CategorySkeleton from "../skeletons/CategorySkeleton/CategorySkeleton";
 import ProductSkeleton from "../skeletons/ProductSkeleton/ProductSkeleton";
 import CartSkeleton from "../skeletons/CartSkeleton/CartSkeleton";
 import Lottie from "lottie-react";
-import errorAnimation from "@assets/Error404.json";
+import errorAnimation from "@assets/ServerError.json";
 const skeletons = {
   category: CategorySkeleton,
   product: ProductSkeleton,
@@ -35,7 +35,7 @@ const Loading = ({
           animationData={errorAnimation}
           loop={true}
         />
-        <p>{error}</p>
+        <h5 className="text-danger">{error}</h5>
       </div>
     );
   }

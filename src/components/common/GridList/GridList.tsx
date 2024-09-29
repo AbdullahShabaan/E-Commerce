@@ -12,13 +12,15 @@ const GridList = <T extends THasId>({
   message,
 }: propsTypes<T>) => {
   const categoriesList =
-    data.length > 0
-      ? data.map((item, index) => (
-          <div key={index} className="col-lg-3 col-md-4 col-sm-6">
-            {iteration(item)}
-          </div>
-        ))
-      : `${message}`;
+    data.length > 0 ? (
+      data.map((item, index) => (
+        <div key={index} className="col-lg-3 col-md-4 col-sm-6">
+          {iteration(item)}
+        </div>
+      ))
+    ) : (
+      <h5 className="text-center">{message}</h5>
+    );
 
   return <div className="row gy-4 mt-4 ">{categoriesList}</div>;
 };

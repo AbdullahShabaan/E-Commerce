@@ -12,7 +12,9 @@ const MainLayout = () => {
       <TopHeader />
       <Container className={container}>
         <Header />
-        <Outlet />
+        <div className="min-vh-100">
+          <Outlet />
+        </div>
       </Container>
       <Footer />
     </>

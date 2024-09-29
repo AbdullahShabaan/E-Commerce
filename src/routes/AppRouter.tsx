@@ -2,7 +2,7 @@ import { lazy, Suspense } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "@pages/ErrorPage";
 import Lottie from "lottie-react";
-import loadingPages from "../assets/loadingPages.json";
+import loadingPages from "../assets/loaderCart.json";
 // Pages
 const MainLayout = lazy(() => import("@layouts/MainLayout/MainLayout"));
 const Categories = lazy(() => import("@pages/Categories"));
@@ -14,12 +14,14 @@ const Register = lazy(() => import("@pages/Register"));
 const Cart = lazy(() => import("@pages/Cart"));
 const WishList = lazy(() => import("@pages/WishList"));
 const Loader = (
-  <div className="d-flex justify-content-center mt-5 pt-5">
-    <Lottie
-      style={{ width: "300px" }}
-      animationData={loadingPages}
-      loop={true}
-    />
+  <div className="loading-cart">
+    <div className="position-absolute translate-middle top-50 start-50">
+      <Lottie
+        style={{ width: "300px" }}
+        animationData={loadingPages}
+        loop={true}
+      />
+    </div>
   </div>
 );
 const AppRouter = () => {
