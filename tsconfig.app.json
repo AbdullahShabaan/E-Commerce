@@ -26,7 +26,8 @@
       "@store/*": ["src/store/*"],
       "@context/*": ["src/context/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@pages/*": ["src/pages/*"]
+      "@pages/*": ["src/pages/*"],
+      "@validation/*": ["src/validation/*"]
     },
     /* Linting */
     "strict": true,

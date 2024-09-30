@@ -11,9 +11,10 @@ const Header = () => {
   const { navbarHeader, headerLink, mainNav, toggelerNavBar } = styles;
   const [isScroll, setIsScroll] = useState(false);
   const handleScroll = () => {
-    if (window.scrollY > 150) {
+    if (window.scrollY > 400) {
       setIsScroll(true);
-    } else {
+    }
+    if (window.scrollY < 30) {
       setIsScroll(false);
     }
   };
@@ -28,7 +29,7 @@ const Header = () => {
     <header>
       <div>
         <Navbar
-          style={{ transition: "0.8s top", top: "-50px", position: "static" }}
+          style={{ transition: "2s top", top: "-100px", position: "static" }}
           expand="lg"
           className={`bg-body-white navbarHeader py-2 border-bottom  ${
             isScroll
@@ -72,7 +73,7 @@ const Header = () => {
                   About Us
                 </NavLink>
                 <NavLink as={navLinkRouter} to="./register">
-                  Register
+                  Sign up
                 </NavLink>
                 <NavLink className={headerLink} as={navLinkRouter} to="./login">
                   Login
