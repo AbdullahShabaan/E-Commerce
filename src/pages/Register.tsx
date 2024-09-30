@@ -11,6 +11,7 @@ import {
 import registerAnimation from "@assets/eCommerce.json";
 import Lottie from "lottie-react";
 import InputForm from "@components/common/Form/InputForm/InputForm";
+
 function Register() {
   const {
     handleSubmit,
@@ -25,6 +26,26 @@ function Register() {
     console.log(data);
   };
 
+  type TInputFields = {
+    name: "firstName" | "lastName" | "email" | "password" | "confirmPassword";
+    label: string;
+    type: string;
+    icon: string;
+  };
+
+  const inputFields: TInputFields[] = [
+    { name: "firstName", label: "Your First Name", type: "text", icon: "user" },
+    { name: "lastName", label: "Your Last Name", type: "text", icon: "user" },
+    { name: "email", label: "Your Email", type: "email", icon: "envelope" },
+    { name: "password", label: "Password", type: "password", icon: "lock" },
+    {
+      name: "confirmPassword",
+      label: "Confirm Password",
+      type: "password",
+      icon: "key",
+    },
+  ];
+
   return (
     <MDBContainer fluid>
       <form onSubmit={handleSubmit(onSubmitForm)}>
@@ -36,66 +57,34 @@ function Register() {
                 lg="6"
                 className="order-2 order-lg-1 d-flex flex-column align-items-center"
               >
-                <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                  Sign up
-                </p>
+                <h1 className="text-center fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                  Sign Up
+                </h1>
 
-                <InputForm
-                  name="firstName"
-                  label="Your First Name"
-                  type="text"
-                  icon="user"
-                  register={register}
-                  error={errors.firstName?.message}
-                  touchedFields={touchedFields.firstName}
-                />
-                <InputForm
-                  name="lastName"
-                  label="Your Last Name"
-                  type="text"
-                  icon="user"
-                  register={register}
-                  error={errors.lastName?.message}
-                  touchedFields={touchedFields.lastName}
-                />
+                {inputFields.map(({ name, label, type, icon }) => (
+                  <InputForm
+                    key={name}
+                    name={name}
+                    label={label}
+                    type={type}
+                    icon={icon}
+                    register={register}
+                    error={errors[name]?.message}
+                    touchedFields={touchedFields[name]}
+                  />
+                ))}
 
-                <InputForm
-                  name="email"
-                  label="Your Email"
-                  type="email"
-                  icon="envelope"
-                  register={register}
-                  error={errors.email?.message}
-                  touchedFields={touchedFields.email}
-                />
-
-                <InputForm
-                  name="password"
-                  label="Password"
-                  type="password"
-                  icon="lock"
-                  register={register}
-                  error={errors.password?.message}
-                  touchedFields={touchedFields.password}
-                />
-                <InputForm
-                  name="confirmPassword"
-                  label="Confirm Password"
-                  type="password"
-                  icon="key"
-                  register={register}
-                  error={errors.confirmPassword?.message}
-                  touchedFields={touchedFields.confirmPassword}
-                />
-
-                <button className="btn btn-primary">Register</button>
+                <button type="submit" className="btn btn-primary mt-4">
+                  Register
+                </button>
               </MDBCol>
+
               <MDBCol
                 md="10"
                 lg="6"
                 className="order-1 order-lg-2 d-flex align-items-center"
               >
-                <Lottie animationData={registerAnimation} loop={true}></Lottie>
+                <Lottie animationData={registerAnimation} loop={true} />
               </MDBCol>
             </MDBRow>
           </MDBCardBody>
