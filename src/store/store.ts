@@ -14,6 +14,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import AuthSlice from "./Auth/AuthSlice";
 
 const cartPersistConfig = {
   key: "CartSlice",
@@ -30,7 +31,7 @@ const wishlistPersistConfig = {
 const rootReducer = combineReducers({
   categoriesSlice,
   productsSlice,
-  // WishListSlice,
+  AuthSlice,
   WishListSlice: persistReducer(wishlistPersistConfig, WishListSlice),
   CartSlice: persistReducer(cartPersistConfig, CartSlice),
 });
