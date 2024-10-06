@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { RootState } from "@store/store";
 import { axiosErrorHandler } from "@utils/axiosErrorHandler";
 import axios from "axios";
 
@@ -10,10 +11,12 @@ interface IWishlistRequest {
 const wishListToggle = createAsyncThunk(
   "wishlist/wishListToggle",
   async (productId: number, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
+    const { rejectWithValue, getState } = thunkAPI;
+    const { AuthSlice } = getState() as RootState;
+
     try {
       const isItemExist = await axios.get<IWishlistRequest[]>(
-        `/wishlist?userId=1&productId=${productId}`
+        `/wishlist?userId=${AuthSlice.user.id}&productId=${productId}`
       );
       if (isItemExist.data.length > 0) {
         await axios.delete(`/wishlist/${isItemExist.data[0].id}`);
@@ -21,7 +24,7 @@ const wishListToggle = createAsyncThunk(
       } else {
         await axios.post(`/wishlist`, {
           productId,
-          userId: 1, // replace with actual user id
+          userId: AuthSlice.user.id,
         });
         return { type: "add", productId };
       }

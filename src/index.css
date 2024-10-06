@@ -20,6 +20,11 @@
 .btnDelete:hover span {
   color: #db4444 !important;
 }
+.dropdown-item.active,
+.dropdown-item:active {
+  color: black !important;
+  background-color: white !important;
+}
 /* Header Counter */
 .basketContainer + div {
   padding-left: 10px;

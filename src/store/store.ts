@@ -21,18 +21,23 @@ const cartPersistConfig = {
   storage,
   whiteList: ["items"],
 };
-
-const wishlistPersistConfig = {
-  key: "WishListSlice",
+const authPersistConfig = {
+  key: "AuthSlice",
   storage,
-  whitelist: ["itemsId"],
+  whiteList: ["user", "accessToken"],
 };
+
+// const wishlistPersistConfig = {
+//   key: "WishListSlice",
+//   storage,
+//   whitelist: ["itemsId"],
+// };
 
 const rootReducer = combineReducers({
   categoriesSlice,
   productsSlice,
-  AuthSlice,
-  WishListSlice: persistReducer(wishlistPersistConfig, WishListSlice),
+  AuthSlice: persistReducer(authPersistConfig, AuthSlice),
+  WishListSlice,
   CartSlice: persistReducer(cartPersistConfig, CartSlice),
 });
 

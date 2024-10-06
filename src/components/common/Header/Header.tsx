@@ -6,9 +6,16 @@ import WishListHeader from "@components/ecommerce/WishListHeader/WishListHeader"
 import logo from "@assets/logo3.png";
 import loaderAnimation from "../../../assets/loader.json";
 import Lottie from "lottie-react";
+import Dropdown from "react-bootstrap/Dropdown";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@store/store";
+import { logOut } from "@store/Auth/AuthSlice";
 const Header = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const { navbarHeader, headerLink, mainNav, toggelerNavBar } = styles;
-
+  const { user, accessToken } = useSelector(
+    (state: RootState) => state.AuthSlice
+  );
   return (
     <header>
       <div>
@@ -52,12 +59,54 @@ const Header = () => {
                 >
                   About Us
                 </NavLink>
-                <NavLink as={navLinkRouter} to="./register">
-                  Sign up
-                </NavLink>
-                <NavLink className={headerLink} as={navLinkRouter} to="./login">
-                  Login
-                </NavLink>
+
+                {!accessToken ? (
+                  <>
+                    <NavLink
+                      as={navLinkRouter}
+                      className={headerLink}
+                      to="./register"
+                    >
+                      Sign up
+                    </NavLink>
+                    <NavLink
+                      className={headerLink}
+                      as={navLinkRouter}
+                      to="./login"
+                    >
+                      Sign In
+                    </NavLink>
+                  </>
+                ) : (
+                  <Dropdown>
+                    <Dropdown.Toggle
+                      style={{ borderColor: "white" }}
+                      variant="none"
+                    >
+                      Welcome{" "}
+                      <span className="text-capitalize">
+                        {user.firstName} {user.lastName}
+                      </span>
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item as={navLinkRouter} to="/profile">
+                        Profile
+                      </Dropdown.Item>
+                      <Dropdown.Item href="#/action-2">
+                        Another action
+                      </Dropdown.Item>
+                      <Dropdown.Divider />
+                      <Dropdown.Item
+                        as={navLinkRouter}
+                        to="./"
+                        onClick={() => dispatch(logOut())}
+                      >
+                        Logout
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                )}
               </Nav>
             </Navbar.Collapse>
 

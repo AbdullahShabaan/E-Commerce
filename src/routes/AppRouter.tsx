@@ -3,6 +3,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "@pages/ErrorPage";
 import Lottie from "lottie-react";
 import loadingPages from "../assets/loaderCart.json";
+import Profile from "@pages/Profile";
+import ProtectRoute from "@components/Auth/ProtectRoute/ProtectRoute";
 // Pages
 const MainLayout = lazy(() => import("@layouts/MainLayout/MainLayout"));
 const Categories = lazy(() => import("@pages/Categories"));
@@ -75,9 +77,11 @@ const AppRouter = () => {
         {
           path: "wishlist",
           element: (
-            <Suspense fallback={Loader}>
-              <WishList />
-            </Suspense>
+            <ProtectRoute>
+              <Suspense fallback={Loader}>
+                <WishList />
+              </Suspense>
+            </ProtectRoute>
           ),
         },
         {
@@ -102,6 +106,16 @@ const AppRouter = () => {
             <Suspense fallback={Loader}>
               <Register />
             </Suspense>
+          ),
+        },
+        {
+          path: "profile",
+          element: (
+            <ProtectRoute>
+              <Suspense fallback={Loader}>
+                <Profile />
+              </Suspense>
+            </ProtectRoute>
           ),
         },
       ],

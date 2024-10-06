@@ -15,6 +15,10 @@ import InputForm from "@components/common/Form/InputForm/InputForm";
 import authRegister from "@store/Auth/act/actAuthRegister";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@store/store";
+import toast from "react-hot-toast";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { resetRegisterAndLoginErrors } from "@store/Auth/AuthSlice";
 
 function Register() {
   const {
@@ -22,7 +26,6 @@ function Register() {
     handleSubmit,
     register,
     getFieldState,
-
     formState: { errors, touchedFields, isValid },
   } = useForm<TFormInputs>({
     resolver: zodResolver(signUpSchema),
@@ -37,12 +40,25 @@ function Register() {
   } = useCheckAvailableEmail();
 
   const dispatch = useDispatch<AppDispatch>();
-  const { error, loading } = useSelector((state: RootState) => state.AuthSlice);
+  const { error, loading, accessToken } = useSelector(
+    (state: RootState) => state.AuthSlice
+  );
+  const navigate = useNavigate();
 
   const onSubmitForm: SubmitHandler<TFormInputs> = (data) => {
     const { firstName, lastName, password, email } = data;
-    dispatch(authRegister({ firstName, lastName, password, email }));
-    console.log(data);
+    dispatch(authRegister({ firstName, lastName, password, email }))
+      .unwrap()
+      .then((response) => {
+        if (response) {
+          toast.success("Registration successful!");
+          goToLogin();
+        }
+      });
+  };
+
+  const goToLogin = () => {
+    navigate("/login");
   };
 
   type TInputFields = {
@@ -80,6 +96,13 @@ function Register() {
       resetCheckAvailableEmail();
     }
   };
+  useEffect(() => {
+    return () => {
+      dispatch(resetRegisterAndLoginErrors());
+    };
+  }, [dispatch]);
+
+  if (accessToken) return <Navigate to="/" />;
 
   return (
     <MDBContainer fluid>

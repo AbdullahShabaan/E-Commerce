@@ -14,6 +14,7 @@ type InputProps<TFieldValue extends FieldValues> = {
   icon: string;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   validationText?: string;
+  login?: boolean;
 };
 const InputForm = <TFieldValue extends FieldValues>({
   label,
@@ -25,6 +26,7 @@ const InputForm = <TFieldValue extends FieldValues>({
   icon,
   onBlur,
   validationText,
+  login,
 }: InputProps<TFieldValue>) => {
   const onBlurHandler = (event: React.FocusEvent<HTMLInputElement>) => {
     if (onBlur) {
@@ -48,7 +50,7 @@ const InputForm = <TFieldValue extends FieldValues>({
               ? touchedFields && !error && validationText == "valid"
                 ? "is-valid"
                 : ""
-              : touchedFields && !error
+              : touchedFields && !error && !login
               ? "is-valid"
               : ""
           } ${error ? "is-invalid" : ""}`}

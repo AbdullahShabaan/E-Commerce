@@ -3,14 +3,12 @@ import { axiosErrorHandler } from "@utils/axiosErrorHandler";
 import axios from "axios";
 
 interface IDataType {
-  data: {
-    accessToken: string;
-    user: {
-      email: string;
-      firstName: string;
-      lastName: string;
-      id: string;
-    };
+  accessToken: string;
+  user: {
+    email: string;
+    firstName: string;
+    lastName: string;
+    id: string;
   };
 }
 interface IFormData {
@@ -26,7 +24,7 @@ const authRegister = createAsyncThunk(
     const { rejectWithValue } = thunkApi;
     try {
       const req = await axios.post<IDataType>("/register", formData);
-      return req.data;
+      return req.data.accessToken;
     } catch (e) {
       return rejectWithValue(axiosErrorHandler(e, "error while registering"));
     }

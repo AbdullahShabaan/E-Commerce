@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { RootState } from "@store/store";
 import { axiosErrorHandler } from "@utils/axiosErrorHandler";
 import axios from "axios";
 import { TProducts } from "src/types/TProducts";
@@ -6,11 +7,13 @@ import { TProducts } from "src/types/TProducts";
 const getWishList = createAsyncThunk(
   "wishlist/getWishList",
   async (_, thunkAPI) => {
-    const { rejectWithValue, fulfillWithValue, signal } = thunkAPI;
+    const { rejectWithValue, fulfillWithValue, signal, getState } = thunkAPI;
+    const { AuthSlice } = getState() as RootState;
+
     try {
       const wishListValues = await axios.get<
         { productId: number; id: number; userId: number }[]
-      >("/wishlist?userId=1");
+      >(`/wishlist?userId=${AuthSlice.user.id}`);
       if (!wishListValues.data.length) {
         return fulfillWithValue([]);
       }
