@@ -4,6 +4,8 @@ import { TProducts } from "src/types/TProducts";
 import { TLoading } from "src/types/TLoading";
 import getWishList from "./act/actGetWishList";
 import isString from "src/types/isString";
+import getWishListNumbers from "./act/actGetWishListNumber";
+import { logOut } from "@store/Auth/AuthSlice";
 
 interface IWishListState {
   itemsId: number[];
@@ -60,6 +62,29 @@ const wishListSlice = createSlice({
         state.error = action.payload;
       }
       state.loading = "failed";
+    });
+    // get wishlist numbers
+    builder.addCase(getWishListNumbers.pending, (state) => {
+      state.error = null;
+      state.loading = "pending";
+    });
+    builder.addCase(getWishListNumbers.fulfilled, (state, action) => {
+      state.error = null;
+      state.loading = "succeeded";
+
+      state.itemsId = action.payload.map((item: { id: number }) => item.id);
+    });
+    builder.addCase(getWishListNumbers.rejected, (state, action) => {
+      if (isString(action.payload)) {
+        state.error = action.payload;
+      }
+      state.loading = "failed";
+    });
+
+    // when logout
+    builder.addCase(logOut, (state) => {
+      state.itemsId = [];
+      state.productsFullInfo = [];
     });
   },
 });

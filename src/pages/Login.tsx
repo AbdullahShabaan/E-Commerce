@@ -1,5 +1,5 @@
-import { useForm, SubmitHandler } from "react-hook-form";
-import { TFormInputs, signInSchema } from "@validation/SignInValidation";
+import useLogin from "@hooks/useLogin";
+import { Navigate } from "react-router-dom";
 import {
   MDBContainer,
   MDBRow,
@@ -10,56 +10,20 @@ import {
 import loginAnimation from "@assets/loginAnimation.json";
 import Lottie from "lottie-react";
 import InputForm from "@components/common/Form/InputForm/InputForm";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@store/store";
-import authLogin from "@store/Auth/act/actAuthLogin";
-import { Navigate, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import { useEffect } from "react";
-import { resetRegisterAndLoginErrors } from "@store/Auth/AuthSlice";
 
 function Login() {
   const {
+    inputFields,
+    onSubmitForm,
+    error,
+    loading,
+    accessToken,
     handleSubmit,
     register,
-    reset,
-    formState: { errors, touchedFields, isValid },
-  } = useForm<TFormInputs>({
-    resolver: zodResolver(signInSchema),
-    mode: "onBlur",
-  });
-
-  const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
-  const { error, loading, accessToken } = useSelector(
-    (state: RootState) => state.AuthSlice
-  );
-  const onSubmitForm: SubmitHandler<TFormInputs> = (data) => {
-    dispatch(authLogin(data))
-      .unwrap()
-      .then(() => {
-        toast.success("Welcome to GoShop!");
-        navigate("/");
-      })
-      .catch(() => reset());
-  };
-  type TInputFields = {
-    name: "email" | "password";
-    label: string;
-    type: string;
-    icon: string;
-  };
-  const inputFields: TInputFields[] = [
-    { name: "email", label: "Your Email", type: "email", icon: "envelope" },
-    { name: "password", label: "Password", type: "password", icon: "lock" },
-  ];
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetRegisterAndLoginErrors());
-    };
-  }, [dispatch, accessToken]);
+    errors,
+    touchedFields,
+    isValid,
+  } = useLogin();
 
   if (accessToken) return <Navigate to="/" />;
 

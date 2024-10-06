@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from "react";
 import { TProducts } from "src/types/TProducts";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@store/store";
 import { addToCart } from "@store/Cart/CartSlice";
 import toast from "react-hot-toast";
 import wishListToggle from "@store/Wishlist/act/actWishListToggle";
@@ -12,6 +12,7 @@ const { product, productImg, discount, stars, like } = styles;
 const Product = memo(
   ({ id, img, price, title, max, quantity, isLiked }: TProducts) => {
     const dispatch = useDispatch<AppDispatch>();
+    const { accessToken } = useSelector((state: RootState) => state.AuthSlice);
     const [isDisabled, setIsDisabled] = useState(false);
     const quantityRemain = max - (quantity ?? 0);
     const reachMax = quantityRemain <= 0;
@@ -39,10 +40,14 @@ const Product = memo(
         return;
       }
       setLikeLoading(true);
-      dispatch(wishListToggle(id))
-        .unwrap()
-        .then(() => setLikeLoading(false))
-        .catch(() => setLikeLoading(false));
+      if (accessToken) {
+        dispatch(wishListToggle(id))
+          .unwrap()
+          .then(() => setLikeLoading(false))
+          .catch(() => setLikeLoading(false));
+      } else {
+        toast.error("Please login to add to wishlist");
+      }
     };
 
     return (

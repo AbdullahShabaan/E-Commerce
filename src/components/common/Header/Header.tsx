@@ -10,12 +10,21 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@store/store";
 import { logOut } from "@store/Auth/AuthSlice";
+import getWishListNumbers from "@store/Wishlist/act/actGetWishListNumber";
+import { useEffect } from "react";
 const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { navbarHeader, headerLink, mainNav, toggelerNavBar } = styles;
   const { user, accessToken } = useSelector(
     (state: RootState) => state.AuthSlice
   );
+
+  useEffect(() => {
+    if (accessToken) {
+      dispatch(getWishListNumbers());
+    }
+  }, [accessToken, dispatch]);
+
   return (
     <header>
       <div>

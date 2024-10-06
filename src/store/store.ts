@@ -27,12 +27,6 @@ const authPersistConfig = {
   whiteList: ["user", "accessToken"],
 };
 
-// const wishlistPersistConfig = {
-//   key: "WishListSlice",
-//   storage,
-//   whitelist: ["itemsId"],
-// };
-
 const rootReducer = combineReducers({
   categoriesSlice,
   productsSlice,
