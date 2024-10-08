@@ -1,23 +1,31 @@
 import { memo, useEffect, useState } from "react";
 import { TProducts } from "src/types/TProducts";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@store/store";
-import { addToCart } from "@store/Cart/CartSlice";
-import toast from "react-hot-toast";
-import wishListToggle from "@store/Wishlist/act/actWishListToggle";
+import { useSelector } from "react-redux";
+import { RootState } from "@store/store";
+
 import { Button } from "react-bootstrap";
 import styles from "./styles.module.css";
-const { product, productImg, discount, stars, like } = styles;
+import { useNavigate } from "react-router-dom";
+import useAddToCart from "@hooks/useAddToCart";
+import useAddToWishList from "@hooks/useAddToWishList";
+
+const { product, productImg, discount, stars, like, eye } = styles;
 
 const Product = memo(
   ({ id, img, price, title, max, quantity, isLiked }: TProducts) => {
-    const dispatch = useDispatch<AppDispatch>();
     const { accessToken } = useSelector((state: RootState) => state.AuthSlice);
     const [isDisabled, setIsDisabled] = useState(false);
     const quantityRemain = max - (quantity ?? 0);
     const reachMax = quantityRemain <= 0;
     const [likeLoading, setLikeLoading] = useState(false);
-
+    const navigate = useNavigate();
+    const addToCartHandler = useAddToCart({ id, setIsDisabled });
+    const wishlistToggleHandler = useAddToWishList({
+      accessToken,
+      id,
+      likeLoading,
+      setLikeLoading,
+    });
     useEffect(() => {
       if (!isDisabled) {
         return;
@@ -29,30 +37,13 @@ const Product = memo(
       return () => clearTimeout(debounce);
     }, [isDisabled]);
 
-    const addToCartHandler = () => {
-      dispatch(addToCart(id));
-      setIsDisabled(true);
-      toast.success("Added to cart successfully");
-    };
-
-    const wishlistToggleHandler = () => {
-      if (likeLoading) {
-        return;
-      }
-      setLikeLoading(true);
-      if (accessToken) {
-        dispatch(wishListToggle(id))
-          .unwrap()
-          .then(() => setLikeLoading(false))
-          .catch(() => setLikeLoading(false));
-      } else {
-        toast.error("Please login to add to wishlist");
-      }
+    const goToDetailsHandler = () => {
+      navigate(`/productDetails/${id}`);
     };
 
     return (
-      <div className={`${product} mt-4`}>
-        <div className={productImg}>
+      <div className={`${product} mt-4 pe`}>
+        <div className={`${productImg}`}>
           <div
             className={`position-absolute ${like}`}
             onClick={wishlistToggleHandler}
@@ -70,7 +61,10 @@ const Product = memo(
             )}
           </div>
 
-          <div className="eye position-absolute">
+          <div
+            className={`${eye} position-absolute`}
+            onClick={goToDetailsHandler}
+          >
             <i className="fa-regular fa-eye"></i>
           </div>
           <p className={discount}>
@@ -91,7 +85,7 @@ const Product = memo(
               )}
             </Button>
           </a>
-          <img src={img} alt={title} />
+          <img className="object-fit-contain" src={img} alt={title} />
         </div>
         <h2 title={title}>{title}</h2>
         <p style={{ fontSize: "13px" }}>

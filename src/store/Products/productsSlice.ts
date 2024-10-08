@@ -4,13 +4,31 @@ import { TProducts } from "src/types/TProducts";
 import getProductsByCatPrefix from "./act/actGetProductsByCatPrefix";
 import getAllProducts from "./act/actGetAllProducts";
 import isString from "src/types/isString";
+import getProductDetails from "./act/actGetProductDetails";
 
 interface IState {
   data: TProducts[];
   loading: TLoading;
   error: string | null;
+  productDetails: TProducts;
 }
-const initialState: IState = { data: [], loading: "idle", error: null };
+
+const initialState: IState = {
+  data: [],
+  loading: "idle",
+  error: null,
+  productDetails: {
+    id: 0,
+    img: "",
+    title: "",
+    price: 0,
+    cat_prefix: "",
+    isLiked: false,
+    quantity: 0,
+    max: 0,
+    images: [""],
+  },
+};
 const productSlice = createSlice({
   name: "products",
   initialState,
@@ -46,6 +64,24 @@ const productSlice = createSlice({
       state.error = null;
     });
     builder.addCase(getAllProducts.rejected, (state, action) => {
+      state.loading = "failed";
+      if (isString(action.payload)) {
+        state.error = action.payload;
+      }
+    });
+
+    // get Product Details
+    builder.addCase(getProductDetails.fulfilled, (state, action) => {
+      state.loading = "succeeded";
+      state.productDetails = action.payload;
+
+      state.error = null;
+    });
+    builder.addCase(getProductDetails.pending, (state) => {
+      state.loading = "pending";
+      state.error = null;
+    });
+    builder.addCase(getProductDetails.rejected, (state, action) => {
       state.loading = "failed";
       if (isString(action.payload)) {
         state.error = action.payload;

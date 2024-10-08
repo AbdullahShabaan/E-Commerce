@@ -7,7 +7,7 @@ import Lottie from "lottie-react";
 import emptyAnimation from "../assets/empty.json";
 
 const Cart = () => {
-  const { itemsLength } = useCart();
+  const { itemsLength, accessToken } = useCart();
   return (
     <>
       <Heading title="Your Cart Items" />
@@ -51,7 +51,7 @@ const Cart = () => {
                         </div>
                       </div>
                     </div>
-                    <TotalPrice />
+                    <TotalPrice accessToken={accessToken} />
                   </div>
                 </div>
               </div>

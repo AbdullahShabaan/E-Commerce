@@ -5,6 +5,7 @@ import Lottie from "lottie-react";
 import loadingPages from "../assets/loaderCart.json";
 import Profile from "@pages/Profile";
 import ProtectRoute from "@components/Auth/ProtectRoute/ProtectRoute";
+import ProductDetails from "@pages/ProductDetails";
 // Pages
 const MainLayout = lazy(() => import("@layouts/MainLayout/MainLayout"));
 const Categories = lazy(() => import("@pages/Categories"));
@@ -116,6 +117,14 @@ const AppRouter = () => {
                 <Profile />
               </Suspense>
             </ProtectRoute>
+          ),
+        },
+        {
+          path: "/productDetails/:id",
+          element: (
+            <Suspense fallback={Loader}>
+              <ProductDetails />
+            </Suspense>
           ),
         },
       ],
