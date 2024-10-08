@@ -1,11 +1,13 @@
 import getProductsByItems from "@store/Cart/act/getProductsByItems";
 import { cleanUpCartProducts } from "@store/Cart/CartSlice";
+import { cleanUpOrdersLoading } from "@store/Orders/ordersSlice";
 import { AppDispatch, RootState } from "@store/store";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export const useCart = () => {
   const { items } = useSelector((state: RootState) => state.CartSlice);
+  const { loading } = useSelector((state: RootState) => state.ordersSlice);
   const { accessToken } = useSelector((state: RootState) => state.AuthSlice);
 
   const itemsLength =
@@ -19,9 +21,10 @@ export const useCart = () => {
 
     return () => {
       dispatch(cleanUpCartProducts());
+      dispatch(cleanUpOrdersLoading());
       promise.abort();
     };
   }, [dispatch]);
 
-  return { itemsLength, accessToken };
+  return { itemsLength, accessToken, loading };
 };

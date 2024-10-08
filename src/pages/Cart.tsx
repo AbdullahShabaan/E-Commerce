@@ -5,9 +5,10 @@ import { useCart } from "@hooks/useCart";
 import { Link } from "react-router-dom";
 import Lottie from "lottie-react";
 import emptyAnimation from "../assets/empty.json";
+import orderDone from "../assets/orderDone.json";
 
 const Cart = () => {
-  const { itemsLength, accessToken } = useCart();
+  const { itemsLength, accessToken, loading: orderLodaing } = useCart();
   return (
     <>
       <Heading title="Your Cart Items" />
@@ -29,18 +30,32 @@ const Cart = () => {
                             {itemsLength} items
                           </h6>
                         </div>
-                        {itemsLength > 0 ? (
-                          <CartItemsList />
+                        {orderLodaing == "succeeded" ? (
+                          <Lottie
+                            className="m-auto"
+                            style={{ width: "430px" }}
+                            animationData={orderDone}
+                            loop={true}
+                          />
                         ) : (
-                          <div className="d-flex align-items-center">
-                            <p>Your cart is empty. Try adding some items!</p>
-                            <Lottie
-                              style={{ width: "430px" }}
-                              animationData={emptyAnimation}
-                              loop={true}
-                            />
-                          </div>
+                          <>
+                            {itemsLength > 0 ? (
+                              <CartItemsList />
+                            ) : (
+                              <div className="d-flex align-items-center">
+                                <p>
+                                  Your cart is empty. Try adding some items!
+                                </p>
+                                <Lottie
+                                  style={{ width: "430px" }}
+                                  animationData={emptyAnimation}
+                                  loop={true}
+                                />
+                              </div>
+                            )}
+                          </>
                         )}
+
                         <div className="pt-5">
                           <h6 className="mb-0">
                             <Link to="/" className="text-body">

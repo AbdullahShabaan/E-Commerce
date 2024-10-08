@@ -36,7 +36,7 @@ const TotalPrice = ({ accessToken }: { accessToken: string | null }) => {
     swalWithBootstrapButtons
       .fire({
         title: "Are you sure?",
-        text: `Are you sure you want to place this order for a total of ${totalPriceComibne}? Please confirm to proceed.`,
+        text: `Are you sure you want to place this order for a total of ${totalPriceComibne.toLocaleString()}? Please confirm to proceed.`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Confirm",

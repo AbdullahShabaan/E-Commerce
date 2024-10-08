@@ -13,7 +13,11 @@ const initialState: IOrder = { ordersList: [], loading: "idle", error: null };
 const ordersSlice = createSlice({
   name: "orders",
   initialState,
-  reducers: {},
+  reducers: {
+    cleanUpOrdersLoading: (state) => {
+      state.loading = "idle";
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(makeOrder.pending, (state) => {
@@ -32,3 +36,4 @@ const ordersSlice = createSlice({
 });
 
 export default ordersSlice.reducer;
+export const { cleanUpOrdersLoading } = ordersSlice.actions;
